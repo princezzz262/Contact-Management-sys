@@ -77,4 +77,32 @@ void saveContact(const Contact& contact, const std::string& filename) {
 }
 
 
+std::vector<Contact> readContactsFromFile(const std::string& filename) {
+    std::vector<Contact> contacts;
+    std::ifstream file(filename);
+    if (file.is_open()) {
+        std::string line;
+        while (std::getline(file, line)) {
+            Contact contact;
+            // Parse each line of the file and populate the contact struct
+            // Assuming the format is: name,phoneNumber,cEmail
+            size_t pos = line.find(',');
+            if (pos != std::string::npos) {
+                contact.name = line.substr(0, pos);
+                line.erase(0, pos + 1);
+                pos = line.find(',');
+                if (pos != std::string::npos) {
+                    contact.phoneNumber = line.substr(0, pos);
+                    line.erase(0, pos + 1);
+                    contact.cEmail = line;
+                }
+            }
+            contacts.push_back(contact);
+        }
+        file.close();
+    } else {
+        std::cerr << "Unable to open file: " << filename << std::endl;
+    }
+    return contacts;
+}
 

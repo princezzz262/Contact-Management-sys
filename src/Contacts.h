@@ -9,6 +9,8 @@
 #define CONTACTS_H_
 
 #include <string>
+#include <vector>
+
 
 // Define the Contact struct
 struct Contact {
@@ -20,5 +22,7 @@ struct Contact {
 // Function declarations
 void newContact(Contact& contact);
 void saveContact(const Contact& contact, const std::string& filename);
+std::vector<Contact> readContactsFromFile(const std::string& filename);
+
 
 #endif /* CONTACTS_H_ */
